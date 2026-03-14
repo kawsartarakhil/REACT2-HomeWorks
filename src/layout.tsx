@@ -4,9 +4,9 @@ import { Link, Outlet } from 'react-router-dom'
 const Layout = () => {
   return (
     <>
-    <header>
+    <header className='flex justify-evenly text-2xl font-bold  shadow h-20 items-center text-blue-950 bg-blue-950/10'>
       <Link to='/'>
-      <h1>Welcome</h1>
+      <h1>Home</h1>
       </Link>
       <Link to='/jotai'>
       <h1>Jotai</h1>
