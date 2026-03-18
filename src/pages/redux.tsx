@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AddData, ChangeStatus, DeleteData, EditData, GetData, SearchData, SelectData } from '../reducers/todo';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { DeleteAtom } from '../store/storeJotai';
+
 
 const addSchema = Yup.object().shape({
   name: Yup.string(),
