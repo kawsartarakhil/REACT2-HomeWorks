@@ -11,7 +11,9 @@ import {
   apiImages,
   ToggleUserStatus,
 } from "./reducers/userSlice";
-import { Button, Input, Modal } from "antd";
+import {  Input, Modal } from "antd";
+import { Button } from "./components/ui/button";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./components/ui/table";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -84,39 +86,38 @@ const User = () => {
 
   return (
     <div className="flex flex-col gap-20 m-20">
-      <Button
-        type="primary"
-        onClick={() => setIsAddModalOpen(true)}
-        className="w-50 h-20 ml-30"
-      >
-        Add User
+      <Button  
+        onClick={() => setIsAddModalOpen(true)} 
+        className="w-40 h-10">
+     ADD-USER
       </Button>
 
       <div>
-        <table className="w-[80%] border ml-30">
-          <thead>
-            <tr className="border h-10 ">
-              <th>#ID</th>
-              <th>NAME</th>
-              <th>IMAGE</th>
-              <th className="w-60">DESCRIPTION</th>
-              <th>STATUS</th>
-              <th>ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table >
+          <TableCaption>User-List</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>#ID</TableHead>
+              <TableHead>NAME</TableHead>
+              <TableHead>IMAGE</TableHead>
+              <TableHead >DESCRIPTION</TableHead>
+              <TableHead>STATUS</TableHead>
+              <TableHead>ACTIONS</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {data.map((user) => {
               return (
-                <tr className="border text-center" key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>
+                <TableRow  key={user.id}>
+                  <TableCell>{user.id}</TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>
                     {user.images?.map((img) => {
                       return (
                         <div key={img.imageName} className="flex">
                           <img
                             src={`${apiImages}${img.imageName}`}
-                            className="rounded-full w-15"
+                            className="w-10 h-10 rounded-full object-cover m-2"
                           />
                           <button
                             onClick={() =>
@@ -128,10 +129,10 @@ const User = () => {
                         </div>
                       );
                     })}
-                  </td>
-                  <td>{user.description}</td>
-                  <td>{user.isCompleted ? "Active" : "Inactive"}</td>
-                  <td className="flex gap-2 items-center justify-center pt-5">
+                  </TableCell>
+                  <TableCell>{user.description}</TableCell>
+                  <TableCell>{user.isCompleted ? "Active" : "Inactive"}</TableCell>
+                  <TableCell >
                     <button onClick={() => dispatch(DeleteUser(user.id))}>
                       Delete
                     </button>
@@ -146,12 +147,12 @@ const User = () => {
                       checked={!!user.isCompleted}
                       onChange={() => dispatch(ToggleUserStatus(user.id))}
                     />
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               );
             })}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
 
       <Modal
